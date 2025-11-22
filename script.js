@@ -30,5 +30,5 @@ btnSubmit.disabled = true;
 
 document.getElementById("formRegister").addEventListener("submit", (e) => {
     e.preventDefault();
-    alert("Đăng ký thành công!");
+    alert("Dang Ky Thanh Cong!");
 });
