@@ -1,34 +1,36 @@
-const emailInput = document.getElementById("emailRegister");
-const passwordInput = document.getElementById("passwordRegister");
-const btnSubmit = document.querySelector("button");
 
+const addTaskBtn = document.getElementById('addTaskBtn');
+const taskInput = document.getElementById('taskInput');
+const taskList = document.getElementById('taskList');
 
-function validateEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
+addTaskBtn.addEventListener('click', function() {
+    const taskText = taskInput.value.trim();
+    
+    if (taskText !== "") {
+        const li = document.createElement('li');
 
+        li.innerHTML = `
+            ${taskText}
+            <div>
+                <button class="complete">Hoan thanh</button>
+                <button class="delete">Xoa</button>
+            </div>
+        `;
 
-function validatePassword(pass) {
-    const passRegex = /^(?=.*[A-Z]).{6,12}$/;
-    return passRegex.test(pass);
-}
+        taskList.appendChild(li);
 
-function checkForm() {
-    const isEmailValid = validateEmail(emailInput.value);
-    const isPassValid = validatePassword(passwordInput.value);
+        taskInput.value = '';
 
-    btnSubmit.disabled = !(isEmailValid && isPassValid);
-}
+        const completeBtn = li.querySelector('.complete');
+        completeBtn.addEventListener('click', function() {
+            li.classList.toggle('completed');
+        });
 
-
-emailInput.addEventListener("input", checkForm);
-passwordInput.addEventListener("input", checkForm);
-
-
-btnSubmit.disabled = true;
-
-document.getElementById("formRegister").addEventListener("submit", (e) => {
-    e.preventDefault();
-    alert("Dang Ky Thanh Cong!");
+        const deleteBtn = li.querySelector('.delete');
+        deleteBtn.addEventListener('click', function() {
+            li.remove();
+        });
+    } else {
+        alert('Vui long nhap cong viec!');
+    }
 });
